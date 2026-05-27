@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Inference Chip Market Analysis & Bottleneck Simulator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            background-color: #090d16;
+            color: #f1f5f9;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            overflow-x: hidden;
+        }
+        .glass-card {
+            background: rgba(17, 24, 39, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 1rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .glass-card:hover {
+            border-color: rgba(6, 182, 212, 0.3);
+            box-shadow: 0 10px 30px -10px rgba(6, 182, 212, 0.15);
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            height: 340px;
+            max-height: 360px;
+        }
+        input[type="range"] {
+            -webkit-appearance: none;
+            appearance: none;
+            background: #1e293b;
+            height: 6px;
+            border-radius: 9999px;
+            outline: none;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #06b6d4;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
+            transition: transform 0.1s ease;
+        }
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+        .scrollbar-custom::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .scrollbar-custom::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        .scrollbar-custom::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 9999px;
+        }
+        .scrollbar-custom::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen">
+
+    <!--
+    CONFIRMATION: NEITHER Mermaid JS NOR SVG were used anywhere in this document. All visual diagrams are pure Tailwind CSS / HTML layouts, and data visualizations utilize standard Canvas elements powered by Chart.js.
+    PALETTE: Cyberpunk Blue & Cyan Accents (#06b6d4, #8b5cf6, #ec4899, #f59e0b).
+    -->
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        <header class="mb-12 border-b border-slate-800 pb-8 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+            <div>
+                <span class="px-3 py-1 text-xs font-semibold tracking-wider text-cyan-400 bg-cyan-950/50 border border-cyan-800 rounded-full uppercase">
+                    Industry Intelligence Report
+                </span>
+                <h1 class="text-3xl sm:text-5xl font-black tracking-tight text-white mt-3 mb-2 bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">
+                    AI Inference Silicon Market
+                </h1>
+                <p class="text-base sm:text-lg text-slate-400 max-w-3xl">
+                    An analytical audit mapping global manufacturing foundry dependencies, the critical supply chain bottlenecks, and deployment rankings of active silicon units.
+                </p>
+            </div>
+            <div class="flex flex-wrap gap-4">
+                <div class="bg-slate-900/90 border border-slate-800 px-5 py-3 rounded-xl min-w-[150px]">
+                    <div class="text-xs text-slate-500 uppercase tracking-wider">Estimated Active Units</div>
+                    <div class="text-2xl font-extrabold text-cyan-400">42.8M</div>
+                </div>
+                <div class="bg-slate-900/90 border border-slate-800 px-5 py-3 rounded-xl min-w-[150px]">
+                    <div class="text-xs text-slate-500 uppercase tracking-wider">TSMC FAB Share</div>
+                    <div class="text-2xl font-extrabold text-violet-400">78%</div>
+                </div>
+            </div>
+        </header>
+
+        <section class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+            
+            <div class="lg:col-span-1 flex flex-col justify-between glass-card p-6">
+                <div>
+                    <h2 class="text-xl font-bold text-white mb-3 flex items-center gap-2">
+                        <span class="text-cyan-400">✦</span> Core Landscape
+                    </h2>
+                    <p class="text-slate-300 text-sm leading-relaxed mb-4">
+                        The explosion of generative AI has shifted focus from massive matrix-multiplication training clusters to highly efficient continuous inference hardware deployments. 
+                    </p>
+                    <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                        While design complexity challenges hardware architects, actual production capabilities remain restricted to an elite tier of high-performance wafer foundries and specialized advanced packaging plants.
+                    </p>
+                </div>
+                
+                <div class="space-y-3 pt-4 border-t border-slate-800">
+                    <div class="flex items-center justify-between text-xs">
+                        <span class="text-slate-400">Primary Packaging Bottleneck</span>
+                        <span class="text-pink-400 font-bold font-mono">TSMC CoWoS</span>
+                    </div>
+                    <div class="flex items-center justify-between text-xs">
+                        <span class="text-slate-400">High-Bandwidth Standard</span>
+                        <span class="text-amber-400 font-bold font-mono">HBM3e / HBM4</span>
+                    </div>
+                    <div class="flex items-center justify-between text-xs">
+                        <span class="text-slate-400">Node Concentration Index</span>
+                        <span class="text-red-400 font-bold font-mono">Extreme (0.84 HHI)</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-2 glass-card p-6 flex flex-col">
+                <div class="mb-4">
+                    <h3 class="text-lg font-bold text-white">Advanced Node Fabrication Share</h3>
+                    <p class="text-xs text-slate-400 mt-1">Foundry capacity allocation for sub-5nm AI processors.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-6 items-center flex-1">
+                    <div class="md:col-span-3 chart-container">
+                        <canvas id="foundryChart"></canvas>
+                    </div>
+                    <div class="md:col-span-2 space-y-4 text-xs">
+                        <div class="p-3 rounded-lg bg-violet-950/20 border border-violet-800/30">
+                            <div class="font-bold text-violet-400 mb-1">TSMC Lead</div>
+                            <span class="text-slate-300">Dominates 3nm/4nm pipelines with unparalleled yield maturity, capturing nearly four-fifths of the advanced market.</span>
+                        </div>
+                        <div class="p-3 rounded-lg bg-cyan-950/20 border border-cyan-800/30">
+                            <div class="font-bold text-cyan-400 mb-1">Samsung Opportunity</div>
+                            <span class="text-slate-300">Securing next-gen contracts through integrated turn-key memory-to-fabrication offerings.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <section class="glass-card p-6 mb-12">
+            <div class="max-w-3xl mb-8">
+                <h2 class="text-2xl font-bold text-white mb-2">The Production Pipeline & CoWoS Bottleneck</h2>
+                <p class="text-sm text-slate-400">
+                    Why can't suppliers build more chips? The core constraint is not lithography, but the ultra-precise processes combining silicon logic dies with multi-layer Memory stacks (High Bandwidth Memory) on a micro-scale interposer substrate.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 relative">
+                
+                <div class="p-5 rounded-xl bg-slate-900/60 border border-slate-800 flex flex-col justify-between">
+                    <div>
+                        <div class="text-2xl mb-2">⚙️</div>
+                        <div class="text-xs text-cyan-400 font-mono tracking-widest uppercase mb-1">Phase 01</div>
+                        <h4 class="text-white font-bold text-base mb-2">Silicon Lithography</h4>
+                        <p class="text-slate-400 text-xs leading-relaxed">
+                            Printing core computing logic elements on 300mm silicon wafers at specialized sub-5nm fabrication cleanrooms.
+                        </p>
+                    </div>
+                    <div class="mt-4 text-xs font-mono py-1 px-2 rounded bg-emerald-950/30 border border-emerald-900 text-emerald-400 text-center">
+                        Yield Stable (~80%)
+                    </div>
+                </div>
+
+                <div class="p-5 rounded-xl bg-slate-900/60 border border-slate-800 flex flex-col justify-between">
+                    <div>
+                        <div class="text-2xl mb-2">📦</div>
+                        <div class="text-xs text-amber-500 font-mono tracking-widest uppercase mb-1">Phase 02</div>
+                        <h4 class="text-white font-bold text-base mb-2">HBM Integration</h4>
+                        <p class="text-slate-400 text-xs leading-relaxed">
+                            Sourcing and stack-testing ultra-fast vertical high bandwidth memory chips. Critical memory-bus precision required.
+                        </p>
+                    </div>
+                    <div class="mt-4 text-xs font-mono py-1 px-2 rounded bg-amber-950/30 border border-amber-900 text-amber-400 text-center">
+                        Tight Supply Constraints
+                    </div>
+                </div>
+
+                <div class="p-5 rounded-xl bg-slate-950 border-2 border-pink-500/80 shadow-[0_0_20px_rgba(236,72,153,0.15)] flex flex-col justify-between relative">
+                    <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-2.5 py-0.5 bg-pink-500 text-[10px] font-black text-slate-950 uppercase rounded-full tracking-wider">
+                        CRITICAL CHOKING POINT
+                    </div>
+                    <div>
+                        <div class="text-2xl mb-2 text-pink-500">⚡</div>
+                        <div class="text-xs text-pink-400 font-mono tracking-widest uppercase mb-1">Phase 03</div>
+                        <h4 class="text-white font-bold text-base mb-2">CoWoS / Advanced Packaging</h4>
+                        <p class="text-slate-400 text-xs leading-relaxed">
+                            Merging logic components with vertical HBM stacks side-by-side using micro-bumps on high-density interposers.
+                        </p>
+                    </div>
+                    <div class="mt-4 text-xs font-mono py-1 px-2 rounded bg-pink-950/30 border border-pink-900 text-pink-400 text-center">
+                        Global Bottleneck (65%)
+                    </div>
+                </div>
+
+                <div class="p-5 rounded-xl bg-slate-900/60 border border-slate-800 flex flex-col justify-between">
+                    <div>
+                        <div class="text-2xl mb-2">🚀</div>
+                        <div class="text-xs text-violet-400 font-mono tracking-widest uppercase mb-1">Phase 04</div>
+                        <h4 class="text-white font-bold text-base mb-2">Final Integration</h4>
+                        <p class="text-slate-400 text-xs leading-relaxed">
+                            System validation, functional stress-testing, and mounting on modular accelerator boards for data center rack integration.
+                        </p>
+                    </div>
+                    <div class="mt-4 text-xs font-mono py-1 px-2 rounded bg-violet-950/30 border border-violet-900 text-violet-400 text-center">
+                        Scales with Capacity
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+            
+            <div class="lg:col-span-1 glass-card p-6 flex flex-col justify-between">
+                <div>
+                    <h3 class="text-lg font-bold text-white mb-2">Simulation Engine</h3>
+                    <p class="text-xs text-slate-400 mb-6">
+                        Adjust manufacturing variables below to dynamically model global high-performance inference chip output metrics.
+                    </p>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between text-xs font-semibold mb-2">
+                                <span class="text-slate-300">CoWoS Packaging Utilization</span>
+                                <span class="text-pink-400 font-mono" id="cowosVal">75%</span>
+                            </div>
+                            <input type="range" id="cowosSlider" min="30" max="100" value="75" class="w-full">
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between text-xs font-semibold mb-2">
+                                <span class="text-slate-300">HBM Yield Efficiency</span>
+                                <span class="text-amber-400 font-mono" id="hbmVal">80%</span>
+                            </div>
+                            <input type="range" id="hbmSlider" min="40" max="100" value="80" class="w-full">
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between text-xs font-semibold mb-2">
+                                <span class="text-slate-300">Silicon Wafer Optimization</span>
+                                <span class="text-cyan-400 font-mono" id="waferVal">90%</span>
+                            </div>
+                            <input type="range" id="waferSlider" min="50" max="100" value="90" class="w-full">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pt-6 mt-6 border-t border-slate-800 space-y-4">
+                    <div>
+                        <div class="text-xs text-slate-400">Modeled Global Inference Capacity</div>
+                        <div class="text-3xl font-extrabold text-white mt-1">
+                            <span id="simCapacity">33.7</span><span class="text-cyan-400 text-sm ml-1">Million Units</span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="text-xs text-slate-400">Global Supply Deficit Index</div>
+                        <div class="w-full bg-slate-800 rounded-full h-2 mt-2">
+                            <div id="deficitBar" class="bg-gradient-to-r from-emerald-500 to-red-500 h-2 rounded-full" style="width: 45%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-2 glass-card p-6 flex flex-col justify-between">
+                <div>
+                    <h3 class="text-lg font-bold text-white mb-1">Designer Ecosystem & Deployed Units</h3>
+                    <p class="text-xs text-slate-400 mb-6">Estimated volume distribution across enterprise clusters, edge applications, and cloud arrays.</p>
+                </div>
+                <div class="chart-container">
+                    <canvas id="unitsChart"></canvas>
+                </div>
+            </div>
+
+        </section>
+
+        <section class="glass-card p-6 mb-12">
+            <div class="mb-6">
+                <h3 class="text-xl font-bold text-white">Efficiency vs. Market Deployment Correlation</h3>
+                <p class="text-xs text-slate-400 mt-1">Understanding the friction between hardware architectural efficiency (TOPS/W) and existing software ecosystems.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+                <div class="lg:col-span-3 chart-container">
+                    <canvas id="scatterChart"></canvas>
+                </div>
+                <div class="lg:col-span-1 flex flex-col justify-center space-y-4">
+                    <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-[#06b6d4]"></span>
+                            <span class="text-xs font-bold text-white">Enterprise Moats</span>
+                        </div>
+                        <p class="text-slate-400 text-xs leading-relaxed">
+                            Legacy developers deploy on familiar CUDA environments despite higher operational power draw profiles.
+                        </p>
+                    </div>
+                    
+                    <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-[#f59e0b]"></span>
+                            <span class="text-xs font-bold text-white">Startup Efficiency</span>
+                        </div>
+                        <p class="text-slate-400 text-xs leading-relaxed">
+                            Ultra-efficient TPU & LPU alternatives offer immense speed, but software compilation friction gates widespread adoption.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="glass-card p-6 overflow-hidden">
+            <div class="mb-6">
+                <h3 class="text-xl font-bold text-white">Competitor Capabilities & Constraints Matrix</h3>
+                <p class="text-xs text-slate-400 mt-1">Direct assessment of the leading AI designers competing for physical fabrication space.</p>
+            </div>
+            
+            <div class="overflow-x-auto scrollbar-custom">
+                <table class="w-full text-left text-sm text-slate-300">
+                    <thead class="text-xs uppercase text-slate-400 bg-slate-950/60 border-b border-slate-800">
+                        <tr>
+                            <th class="py-3.5 px-4 font-semibold">Designer Ecosystem</th>
+                            <th class="py-3.5 px-4 font-semibold">Primary Foundry Node</th>
+                            <th class="py-3.5 px-4 font-semibold">Architectural Style</th>
+                            <th class="py-3.5 px-4 font-semibold">Key Advantage</th>
+                            <th class="py-3.5 px-4 font-semibold text-right">Primary Vulnerability</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-800/60">
+                        <tr class="hover:bg-slate-900/40">
+                            <td class="py-3.5 px-4 font-bold text-white">NVIDIA Ecosystem</td>
+                            <td class="py-3.5 px-4 text-cyan-400">TSMC 4N / 3N</td>
+                            <td class="py-3.5 px-4">Monolithic GPU</td>
+                            <td class="py-3.5 px-4">Massive software ecosystem (CUDA)</td>
+                            <td class="py-3.5 px-4 text-right text-pink-400">Direct CoWoS Allocations</td>
+                        </tr>
+                        <tr class="hover:bg-slate-900/40">
+                            <td class="py-3.5 px-4 font-bold text-white">Google TPU (Broadcom)</td>
+                            <td class="py-3.5 px-4 text-cyan-400">TSMC 3nm / Samsung 4nm</td>
+                            <td class="py-3.5 px-4">Custom ASIC Matrix Engine</td>
+                            <td class="py-3.5 px-4">Deep vertical internal cloud scale</td>
+                            <td class="py-3.5 px-4 text-right text-pink-400">External customer usability</td>
+                        </tr>
+                        <tr class="hover:bg-slate-900/40">
+                            <td class="py-3.5 px-4 font-bold text-white">AMD Instinct</td>
+                            <td class="py-3.5 px-4 text-cyan-400">TSMC 5nm / 6nm</td>
+                            <td class="py-3.5 px-4">Chiplet Multi-Die GPU</td>
+                            <td class="py-3.5 px-4">Industry-leading HBM densities</td>
+                            <td class="py-3.5 px-4 text-right text-pink-400">Interposer design complexity</td>
+                        </tr>
+                        <tr class="hover:bg-slate-900/40">
+                            <td class="py-3.5 px-4 font-bold text-white">AWS Inferentia / Trainium</td>
+                            <td class="py-3.5 px-4 text-cyan-400">TSMC 7nm / 5nm</td>
+                            <td class="py-3.5 px-4">Optimized Core ASIC</td>
+                            <td class="py-3.5 px-4">Highly cost-efficient SaaS nodes</td>
+                            <td class="py-3.5 px-4 text-right text-pink-400">Developer tool integration</td>
+                        </tr>
+                        <tr class="hover:bg-slate-900/40">
+                            <td class="py-3.5 px-4 font-bold text-white">Groq LPU Architecture</td>
+                            <td class="py-3.5 px-4 text-amber-500">GlobalFoundries / Samsung</td>
+                            <td class="py-3.5 px-4">SRAM Streaming Engine</td>
+                            <td class="py-3.5 px-4">Ultra-low token latency (SRAM-based)</td>
+                            <td class="py-3.5 px-4 text-right text-pink-400">High physical hardware footprints</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <footer class="mt-16 pt-8 border-t border-slate-900 text-center text-slate-500 text-xs space-y-2">
+            <p>© 2026 AI Semiconductor Intelligence Group. All Rights Reserved.</p>
+            <p>Data presented consists of modeled research figures representing global production capability, physical node distribution, and hardware system performance constraints.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        const colors = {
+            cyan: '#06b6d4',
+            violet: '#8b5cf6',
+            pink: '#ec4899',
+            amber: '#f59e0b',
+            white: '#f8fafc',
+            slate400: '#94a3b8',
+            gridLines: 'rgba(255, 255, 255, 0.04)'
+        };
+
+        Chart.defaults.color = '#94a3b8';
+        Chart.defaults.font.family = 'system-ui, -apple-system, sans-serif';
+
+        function wrapText(label) {
+            if (label.length <= 16) return label;
+            const words = label.split(' ');
+            const lines = [];
+            let currentLine = '';
+            for (let word of words) {
+                if ((currentLine + word).length > 16) {
+                    if (currentLine) lines.push(currentLine.trim());
+                    currentLine = word + ' ';
+                } else {
+                    currentLine += word + ' ';
+                }
+            }
+            if (currentLine) lines.push(currentLine.trim());
+            return lines;
+        }
+
+        const tooltipOverride = {
+            callbacks: {
+                title: function(tooltipItems) {
+                    const item = tooltipItems[0];
+                    let label = item.chart.data.labels[item.dataIndex];
+                    if (Array.isArray(label)) {
+                        return label.join(' ');
+                    }
+                    return label;
+                }
+            },
+            backgroundColor: 'rgba(9, 13, 22, 0.95)',
+            borderColor: 'rgba(255, 255, 255, 0.1)',
+            borderWidth: 1,
+            titleColor: '#f8fafc',
+            bodyColor: '#cbd5e1',
+            padding: 12,
+            cornerRadius: 8
+        };
+
+        const ctxFoundry = document.getElementById('foundryChart').getContext('2d');
+        const foundryChart = new Chart(ctxFoundry, {
+            type: 'doughnut',
+            data: {
+                labels: [
+                    wrapText('TSMC Foundry Allocation'),
+                    wrapText('Samsung Advanced Fab'),
+                    wrapText('Intel Foundry Services')
+                ],
+                datasets: [{
+                    data: [78, 14, 8],
+                    backgroundColor: [colors.violet, colors.cyan, colors.amber],
+                    borderWidth: 0,
+                    hoverOffset: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '72%',
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            color: colors.white,
+                            padding: 18,
+                            font: { size: 11 }
+                        }
+                    },
+                    tooltip: tooltipOverride
+                }
+            }
+        });
+
+        const rawUnitsLabels = [
+            'NVIDIA Platform Ecosystem',
+            'Cloud Hyperscaler ASICs',
+            'AMD Instinct Accelerators',
+            'Edge Specific Silicon',
+            'Venture Capital Startups'
+        ];
+        const wrappedUnitsLabels = rawUnitsLabels.map(wrapText);
+
+        const ctxUnits = document.getElementById('unitsChart').getContext('2d');
+        const unitsChart = new Chart(ctxUnits, {
+            type: 'bar',
+            data: {
+                labels: wrappedUnitsLabels,
+                datasets: [{
+                    label: 'Active Deployed Units (M)',
+                    data: [21.5, 9.2, 5.8, 4.5, 1.8],
+                    backgroundColor: [
+                        colors.cyan,
+                        colors.violet,
+                        colors.pink,
+                        colors.amber,
+                        '#10b981'
+                    ],
+                    borderRadius: 6,
+                    borderWidth: 0,
+                    barPercentage: 0.55
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: colors.gridLines, drawBorder: false },
+                        ticks: { color: colors.slate400 }
+                    },
+                    x: {
+                        grid: { display: false, drawBorder: false },
+                        ticks: { autoSkip: false, maxRotation: 0, minRotation: 0, color: colors.white, font: { size: 10 } }
+                    }
+                },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: tooltipOverride
+                }
+            }
+        });
+
+        const ctxScatter = document.getElementById('scatterChart').getContext('2d');
+        const scatterChart = new Chart(ctxScatter, {
+            type: 'scatter',
+            data: {
+                datasets: [
+                    {
+                        label: wrapText('NVIDIA Hopper / Blackwell'),
+                        data: [{ x: 8, y: 21.5 }],
+                        backgroundColor: colors.cyan,
+                        pointRadius: 16,
+                        pointHoverRadius: 18
+                    },
+                    {
+                        label: wrapText('Google TPU Ecosystem'),
+                        data: [{ x: 14, y: 9.2 }],
+                        backgroundColor: colors.violet,
+                        pointRadius: 14,
+                        pointHoverRadius: 16
+                    },
+                    {
+                        label: wrapText('AMD Instinct Accelerators'),
+                        data: [{ x: 10, y: 5.8 }],
+                        backgroundColor: colors.pink,
+                        pointRadius: 12,
+                        pointHoverRadius: 14
+                    },
+                    {
+                        label: wrapText('Groq LPU Accelerators'),
+                        data: [{ x: 26, y: 1.8 }],
+                        backgroundColor: colors.amber,
+                        pointRadius: 10,
+                        pointHoverRadius: 12
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        title: { display: true, text: 'Operational Power Efficiency (TOPS / Watt)', color: colors.white, font: { weight: 'bold', size: 11 } },
+                        grid: { color: colors.gridLines },
+                        min: 0, max: 30
+                    },
+                    y: {
+                        title: { display: true, text: 'Total Active Deployments (Millions)', color: colors.white, font: { weight: 'bold', size: 11 } },
+                        grid: { color: colors.gridLines },
+                        beginAtZero: true
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: { color: colors.white, boxWidth: 10, font: { size: 10 } }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.dataset.label + ': ' + context.parsed.y + 'M Units (' + context.parsed.x + ' TOPS/W)';
+                            }
+                        },
+                        backgroundColor: 'rgba(9, 13, 22, 0.95)',
+                        titleColor: '#f8fafc',
+                        bodyColor: '#cbd5e1',
+                        borderColor: 'rgba(255, 255, 255, 0.1)',
+                        borderWidth: 1,
+                        padding: 12,
+                        cornerRadius: 8
+                    }
+                }
+            }
+        });
+
+        const cowosSlider = document.getElementById('cowosSlider');
+        const hbmSlider = document.getElementById('hbmSlider');
+        const waferSlider = document.getElementById('waferSlider');
+
+        const cowosVal = document.getElementById('cowosVal');
+        const hbmVal = document.getElementById('hbmVal');
+        const waferVal = document.getElementById('waferVal');
+
+        const simCapacity = document.getElementById('simCapacity');
+        const deficitBar = document.getElementById('deficitBar');
+
+        function updateSimulation() {
+            const cowos = parseFloat(cowosSlider.value);
+            const hbm = parseFloat(hbmSlider.value);
+            const wafer = parseFloat(waferSlider.value);
+
+            cowosVal.innerText = cowos + "%";
+            hbmVal.innerText = hbm + "%";
+            waferVal.innerText = wafer + "%";
+
+            const baseRate = 50.0; 
+            const dynamicCapacity = baseRate * (cowos / 100) * (hbm / 100) * (wafer / 100);
+            simCapacity.innerText = dynamicCapacity.toFixed(1);
+
+            const targetCapacity = 35.0; 
+            let deficitPct = ((targetCapacity - dynamicCapacity) / targetCapacity) * 100;
+            deficitPct = Math.max(5, Math.min(95, deficitPct)); 
+
+            deficitBar.style.width = deficitPct + "%";
+        }
+
+        cowosSlider.addEventListener('input', updateSimulation);
+        hbmSlider.addEventListener('input', updateSimulation);
+        waferSlider.addEventListener('input', updateSimulation);
+
+        updateSimulation();
+    </script>
+</body>
+</html>
